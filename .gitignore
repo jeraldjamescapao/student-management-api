@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# .gitignore for Java + Spring Boot on macOS
+.DS_Store
