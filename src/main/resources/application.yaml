@@ -1,3 +1,16 @@
 spring:
   application:
     name: student-management-api
+
+springdoc:
+  swagger-ui:
+    path: /docs
+    display-request-duration: true
+    operationsSorter: method
+    tagsSorter: alpha
+    tryItOutEnabled: true
+    filter: true
+    docExpansion: none
+    syntaxHighlight:
+      activated: true
+    persistAuthorization: true
