@@ -2,7 +2,7 @@ spring:
   application:
     name: student-management-api
   datasource:
-    url: jdbc:h2:file:./data/schooldb;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE # DB file lives at ./data/schooldb.mv.db.
+    url: jdbc:h2:file:./data/schooldb;MODE=PostgreSQL;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -12,8 +12,8 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: none # I own the schema via SQL files
-    open-in-view: false
+      ddl-auto: none # I have my own schema.sql and data.sql files
+    defer-datasource-initialization: true
   sql:
     init:
       mode: always  # Runs schema.sql then data.sql each boot
