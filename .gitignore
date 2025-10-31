@@ -13,11 +13,6 @@ target/
 .springBeans
 .sts4-cache
 
-# H2 file-based database files
-/data/*.mv.db
-/data/*.trace.db
-/data/*.lock.db
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -37,5 +32,19 @@ build/
 ### VS Code ###
 .vscode/
 
-# .gitignore for Java + Spring Boot on macOS
+# macOS system files
 .DS_Store
+src/.DS_Store
+
+# Other temporary files
+*.tmp
+*.bak
+
+# Logs
+logs/
+*.log
+
+# H2 file-based database files
+/data/*.mv.db
+/data/*.trace.db
+/data/*.lock.db
