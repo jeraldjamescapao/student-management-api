@@ -11,8 +11,13 @@ spring:
       enabled: true
       path: /h2-console
   jackson:
-    deserialization:
-      ACCEPT_CASE_INSENSITIVE_ENUMS: true
+    jackson:
+      mapper:
+        accept-case-insensitive-enums: true
+        accept-case-insensitive-properties: true
+      deserialization:
+        FAIL_ON_UNKNOWN_PROPERTIES: false
+        READ_UNKNOWN_ENUM_VALUES_AS_NULL: true
   jpa:
     hibernate:
       ddl-auto: none # I have my own schema.sql and data.sql files
