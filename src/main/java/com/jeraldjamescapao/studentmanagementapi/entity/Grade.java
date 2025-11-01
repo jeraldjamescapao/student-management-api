@@ -1,12 +1,28 @@
 package com.jeraldjamescapao.studentmanagementapi.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+/**
+ * JPA entity capturing a grade issued for a specific {@code Enrollment}.
+ *
+ * <p>Not directly exposed via the public API. Access is managed through controllers, DTOs, mappers,
+ * and services that enforce business rules.</p>
+ *
+ * <p>Key persistence notes:</p>
+ * <ul>
+ *   <li>Lazy reference to {@code Enrollment}; access within a transactional context or map to DTOs.</li>
+ *   <li>Indexed by {@code enrollment} (for joins) and by {@code letter} (for reporting).</li>
+ *   <li>Consider service-level invariants if only one final grade per enrollment is allowed.</li>
+ *   <li>Inherits identity and audit timestamps from {@code BaseEntity}.</li>
+ * </ul>
+ *
+ * @see BaseEntity
+ * @see Enrollment
+ */
 @Entity
 @Table(
         name = "grades",
@@ -20,30 +36,27 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-@Schema(description = "Represents the grade a student receives for an enrollment.")
+@ToString(callSuper = true, exclude = {"enrollment"})
 public class Grade extends BaseEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "enrollment_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_grades_enrollment"))
-    @Schema(description = "The enrollment record this grade belongs to.")
     private Enrollment enrollment;
 
-    @Schema(description = "Letter grade (e.g., A, B+, F).")
+    /** Letter grade (e.g., A, B+); max length 2. */
     @Column(name = "letter", length = 2, nullable = false)
     private String letter;
 
-    @Schema(description = "Numeric grade points (e.g., 4.0).")
+    /** Grade points (e.g., 0.00–6.00); policy-defined scale with two decimals. */
     @Column(name = "points", precision = 3, scale = 2, nullable = false)
     private BigDecimal points;
 
-    @Schema(description = "Date and time when the grade was given.")
+    /** Timestamp when the grade was awarded; set by the grading workflow/service. */
     @Column(name = "graded_at", nullable = false)
     private OffsetDateTime gradedAt;
 
-    @Schema(description = "Optional notes about the grade.")
+    /** Optional instructor remarks or justification. */
     @Lob
     @Column(name = "notes")
     private String notes;

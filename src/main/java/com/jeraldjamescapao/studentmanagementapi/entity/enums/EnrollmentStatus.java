@@ -1,25 +1,33 @@
 package com.jeraldjamescapao.studentmanagementapi.entity.enums;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-@Schema(description = "Status of a student's enrollment in a specific course.")
+/**
+ * Enumeration representing the current status of a student's enrollment in a course.
+ *
+ * <p>Each value reflects a distinct stage in the enrollment lifecycle, from initial registration
+ * through completion or cancellation.</p>
+ *
+ * <p>Persistence note: when stored via {@code @Enumerated(EnumType.STRING)}, renaming constants
+ * requires a data migration.</p>
+ *
+ * @see com.jeraldjamescapao.studentmanagementapi.entity.Enrollment
+ */
 public enum EnrollmentStatus {
-    @Schema(description = "Student has registered but not yet enrolled.")
+    /** Student has registered but not yet officially enrolled. */
     REGISTERED,
-    @Schema(description = "Student is officially enrolled in the course.")
+    /** Student is currently enrolled in the course. */
     ENROLLED,
-    @Schema(description = "Student is waitlisted for a spot in the course.")
+    /** Student is waitlisted pending available space. */
     WAITLISTED,
-    @Schema(description = "Student dropped the course before the deadline.")
+    /** Student dropped the course before the withdrawal deadline. */
     DROPPED,
-    @Schema(description = "Student withdrew after partial completion.")
+    /** Student withdrew after partial completion. */
     WITHDRAWN,
-    @Schema(description = "Course successfully completed with a final grade.")
+    /** Course successfully completed with a final grade. */
     COMPLETED,
-    @Schema(description = "Course failed with a non-passing grade.")
+    /** Course failed with a non-passing grade. */
     FAILED,
-    @Schema(description = "Course incomplete; pending completion requirements.")
+    /** Course remains incomplete; pending completion requirements. */
     INCOMPLETE,
-    @Schema(description = "Course cancelled or voided by the school system.")
+    /** Course cancelled or voided by the school administration. */
     CANCELLED
 }

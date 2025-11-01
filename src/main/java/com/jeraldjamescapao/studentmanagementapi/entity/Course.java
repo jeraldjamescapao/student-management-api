@@ -1,9 +1,25 @@
 package com.jeraldjamescapao.studentmanagementapi.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * JPA entity describing an academic course that can be offered and enrolled by students.
+ *
+ * <p>Not directly exposed via the public API. Access is managed through controllers, DTOs, mappers,
+ * and services that enforce business rules.</p>
+ *
+ * <p>Key persistence notes:</p>
+ * <ul>
+ *   <li>Course code is unique to prevent duplicate curricula entries.</li>
+ *   <li>Index on {@code active} supports fast catalog filtering.</li>
+ *   <li>Use {@code active=false} to retire a course without losing historical data.</li>
+ *   <li>Inherits identity and audit timestamps from {@code BaseEntity}.</li>
+ * </ul>
+ *
+ * @see BaseEntity
+ * @see Enrollment
+ */
 @Entity
 @Table(
         name = "courses",
@@ -15,28 +31,25 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Schema(description = "Represents a course offered by the school.")
 public class Course extends BaseEntity {
 
-    @Schema(description = "Course code (e.g., CS101).")
+    /** Human-readable unique course code (e.g., CS101); stable external reference. */
     @Column(name = "code", length = 32, nullable = false)
     private String code;
 
-    @Schema(description = "Course title.")
     @Column(name = "title", length = 200, nullable = false)
     private String title;
 
-    @Schema(description = "Brief description of the course.")
     @Column(name = "description", length = 2000)
     private String description;
 
-    @Schema(description = "Number of credit units for the course.")
+    /** Number of academic credits per institutional policy. */
     @Column(name = "credits", nullable = false)
     private Integer credits;
 
-    @Schema(description = "Indicates if the course is currently active.")
+    /** Soft-retire flag; set false to remove from the course catalog without deleting history. */
+    @Builder.Default
     @Column(name = "active", nullable = false)
     private boolean active = true;
 }

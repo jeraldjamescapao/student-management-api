@@ -1,12 +1,29 @@
 package com.jeraldjamescapao.studentmanagementapi.entity;
 
 import com.jeraldjamescapao.studentmanagementapi.entity.enums.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
+/**
+ * JPA entity representing a student in the school domain.
+ *
+ * <p>Not directly exposed via the public API. Access is managed through controllers, DTOs, mappers,
+ * and services that enforce business rules.</p>
+ *
+ * <p>Key persistence notes:</p>
+ * <ul>
+ *   <li>Email is globally unique (enforced by a DB constraint).</li>
+ *   <li>Common query paths are optimized with indexes on (lastName, firstName) and status.</li>
+ *   <li>Enums are stored as strings; renaming enum constants requires a data migration.</li>
+ *   <li>Inherits identity and audit timestamps from {@code BaseEntity}.</li>
+ * </ul>
+ *
+ * @see BaseEntity
+ * @see Gender
+ * @see StudentStatus
+ */
 @Entity
 @Table(
         name = "students",
@@ -21,33 +38,28 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Schema(description = "Represents a student in the school system.")
 public class Student extends BaseEntity {
 
-    @Schema(description = "Student's first name.")
     @Column(name = "first_name", length = 100, nullable = false)
     private String firstName;
 
-    @Schema(description = "Student's last name.")
     @Column(name = "last_name", length = 100, nullable = false)
     private String lastName;
 
-    @Schema(description = "Email address of the student.")
+    /** Unique email for account identity; normalize (trim/lowercase) at the service layer. */
     @Column(name = "email", length = 320, nullable = false)
     private String email;
 
-    @Schema(description = "Gender of the student.")
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 10, nullable = false)
     private Gender gender;
 
-    @Schema(description = "Date of birth.")
+    /** Date of birth (date-only, no timezone); used for age/eligibility rules. */
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
-    @Schema(description = "Current enrollment status of the student.")
+    /** Student lifecycle status (e.g., APPLIED, ENROLLED, SUSPENDED, GRADUATED). */
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
     private StudentStatus status;

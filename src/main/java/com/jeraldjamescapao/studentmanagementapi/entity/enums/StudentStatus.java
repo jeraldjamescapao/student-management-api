@@ -1,23 +1,31 @@
 package com.jeraldjamescapao.studentmanagementapi.entity.enums;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
-@Schema(description = "Lifecycle status of a student in the school system.")
+/**
+ * Enumeration representing the lifecycle status of a student within the school system.
+ *
+ * <p>Defines key states from initial application to graduation or inactivity. Used to track
+ * administrative progress and eligibility.</p>
+ *
+ * <p>Persistence note: when stored via {@code @Enumerated(EnumType.STRING)}, renaming constants
+ * requires a data migration.</p>
+ *
+ * @see com.jeraldjamescapao.studentmanagementapi.entity.Student
+ */
 public enum StudentStatus {
-    @Schema(description = "Applied but not yet admitted.")
+    /** Applied but not yet admitted. */
     APPLIED,
-    @Schema(description = "Admitted but not yet enrolled.")
+    /** Admitted but not yet enrolled in any course. */
     ADMITTED,
-    @Schema(description = "Currently enrolled in active courses.")
+    /** Currently enrolled in active courses. */
     ENROLLED,
-    @Schema(description = "Temporarily on academic leave.")
+    /** Temporarily on academic or personal leave. */
     ON_LEAVE,
-    @Schema(description = "Suspended for disciplinary or academic reasons.")
+    /** Suspended for disciplinary or academic reasons. */
     SUSPENDED,
-    @Schema(description = "Formally withdrawn from the school system.")
+    /** Formally withdrawn from the institution. */
     WITHDRAWN,
-    @Schema(description = "Successfully graduated.")
+    /** Successfully completed all program requirements. */
     GRADUATED,
-    @Schema(description = "No longer active in any capacity.")
+    /** No longer active in any capacity. */
     INACTIVE
 }
