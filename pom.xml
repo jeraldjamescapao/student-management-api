@@ -43,11 +43,12 @@
 		</developer>
 	</developers>
 
+	<!-- Source Control Management  -->
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:https://github.com/jeraldjamescapao/student-management-api.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/jeraldjamescapao/student-management-api.git</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/jeraldjamescapao/student-management-api</url>
 	</scm>
 
 	<properties>
