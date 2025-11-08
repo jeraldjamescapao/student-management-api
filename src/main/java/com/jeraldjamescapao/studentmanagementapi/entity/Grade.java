@@ -2,6 +2,7 @@ package com.jeraldjamescapao.studentmanagementapi.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -35,8 +36,9 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, exclude = {"enrollment"})
+@SuperBuilder
 public class Grade extends BaseEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

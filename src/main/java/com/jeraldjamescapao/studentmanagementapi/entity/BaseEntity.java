@@ -1,8 +1,8 @@
 package com.jeraldjamescapao.studentmanagementapi.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,9 +34,12 @@ import java.util.UUID;
  * @see org.hibernate.annotations.CreationTimestamp
  * @see org.hibernate.annotations.UpdateTimestamp
  */
-@MappedSuperclass
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@MappedSuperclass
+@SuperBuilder(toBuilder = true)
 public abstract class BaseEntity {
 
     /** Auto-generated primary key (immutable). */

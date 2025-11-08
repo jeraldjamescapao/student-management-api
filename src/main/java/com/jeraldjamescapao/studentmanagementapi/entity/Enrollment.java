@@ -3,6 +3,7 @@ package com.jeraldjamescapao.studentmanagementapi.entity;
 import com.jeraldjamescapao.studentmanagementapi.entity.enums.EnrollmentStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * JPA entity linking a {@code Student} to a {@code Course} for a specific academic offering (term and section).
@@ -40,8 +41,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, exclude = {"student", "course"})
+@SuperBuilder
 public class Enrollment extends BaseEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

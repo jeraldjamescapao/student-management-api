@@ -2,6 +2,7 @@ package com.jeraldjamescapao.studentmanagementapi.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * JPA entity describing an academic course that can be offered and enrolled by students.
@@ -30,8 +31,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@SuperBuilder
 public class Course extends BaseEntity {
 
     /** Human-readable unique course code (e.g., CS101); stable external reference. */

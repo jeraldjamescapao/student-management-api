@@ -3,6 +3,7 @@ package com.jeraldjamescapao.studentmanagementapi.entity;
 import com.jeraldjamescapao.studentmanagementapi.entity.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -37,8 +38,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@SuperBuilder
 public class Student extends BaseEntity {
 
     @Column(name = "first_name", length = 100, nullable = false)
