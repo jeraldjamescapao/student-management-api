@@ -33,6 +33,10 @@ public interface StudentRepository extends JpaRepository<Student, UUID> {
 
     boolean existsByEmailIgnoreCase(String email);
 
+    // Check if there’s already another student with the same email,
+    // but not the one with this specific id.
+    boolean existsByEmailIgnoreCaseAndIdNot(String email, UUID id);
+
     // schema: ix_students_status
     Page<Student> findByStatus(StudentStatus status, Pageable pageable);
 
