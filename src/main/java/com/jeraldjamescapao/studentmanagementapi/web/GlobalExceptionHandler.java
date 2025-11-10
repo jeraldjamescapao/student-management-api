@@ -7,8 +7,29 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Maps exceptions to HTTP responses.
- * Keeps error messages short.
+ * Centralized exception handler for all REST controllers.
+ *
+ * <p><b>Usage:</b> Captures application-specific exceptions and converts
+ * them into consistent {@link ErrorResponse} payloads. This ensures
+ * predictable error formatting for all API clients.</p>
+ *
+ * <p><b>Behavior:</b> Each handler method maps a specific exception type
+ * to an appropriate HTTP status code and message:</p>
+ * <ul>
+ *   <li>{@link NotFoundException} → 404 Not Found</li>
+ *   <li>{@link ConflictException} → 409 Conflict</li>
+ *   <li>{@link BadRequestException} → 400 Bad Request</li>
+ *   <li>{@link MethodArgumentNotValidException} → 400 Bad Request (validation errors)</li>
+ * </ul>
+ *
+ * <p><b>Note:</b> This class is annotated with
+ * {@link RestControllerAdvice},
+ * which allows it to handle exceptions across all controllers globally.</p>
+ *
+ * @see ErrorResponse
+ * @see NotFoundException
+ * @see ConflictException
+ * @see BadRequestException
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
